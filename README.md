@@ -17,10 +17,9 @@ Gerar base de docker com configuração dos containers de:
 install foobar.
 
 ```bash
-Code Line
-1..
-2...
-3....
+sudo chmod -R 777 .docker
+sudo chmod -R 777 storage
+docker-compose up --build
 ```
 
 ## Migrations

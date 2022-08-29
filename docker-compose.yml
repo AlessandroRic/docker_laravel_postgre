@@ -1,0 +1,36 @@
+version: '3'
+services:
+  
+  laravel_app:
+    build: .
+    container_name: laravel_app
+    restart: always
+    volumes:
+      - .:/var/www
+    depends_on:
+      - postgresql_db
+  
+  postgresql_db:  
+    image: postgres:12.0-alpine
+    container_name: postgresql_db
+    restart: always
+    ports:
+      - "54321:5432"
+    environment:  
+      POSTGRES_PASSWORD: 1p2o3s4t5g6r7s  
+      POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data/db-files/
+    volumes:  
+      - ./.docker/dbdata:/var/lib/postgresql/data
+ 
+  nginx_app:
+    image: nginx:alpine
+    container_name: nginx_app
+    restart: always
+    ports:
+      - "9000:80"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx:/etc/nginx/conf.d/
+    depends_on:
+      - laravel_app
