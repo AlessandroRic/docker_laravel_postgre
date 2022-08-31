@@ -34,3 +34,10 @@ services:
       - ./.docker/nginx:/etc/nginx/conf.d/
     depends_on:
       - laravel_app
+
+  redis:
+    image: redis
+    container_name: redis_app
+    command: redis-server --requirepass Redis2022!
+    ports:
+      - "6389:6379"
