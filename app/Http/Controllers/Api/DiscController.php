@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DiscRequest;
+use App\Http\Requests\CreateDiscRequest;
+use App\Http\Requests\UpdateDiscRequest;
 use App\Models\Disc;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class DiscController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DiscRequest $request)
+    public function store(CreateDiscRequest $request)
     {
         $request->validated();
         Disc::create($request->all());
@@ -39,7 +40,15 @@ class DiscController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $disc = Disc::find($id);
+        
+        if(!$disc)
+            return response([
+                'message' => "Id $id Not Found"
+            ], 404);
+
+        return response($disc);
     }
 
     /**
@@ -49,9 +58,18 @@ class DiscController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDiscRequest $request, $id)
     {
-        //
+        $amount = $request->safe()->only(['amount']);
+
+        $disc = Disc::find($id);
+        
+        if(!$disc)
+            return response([
+                'message' => "Id $id Not Found"
+            ], 404);
+
+        $disc->update($amount);
     }
 
     /**
@@ -62,6 +80,13 @@ class DiscController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $disc = Disc::find($id);
+        
+        if(!$disc)
+            return response([
+                'message' => "Id $id Not Found"
+            ], 404);
+            
+        $disc->delete();
     }
 }

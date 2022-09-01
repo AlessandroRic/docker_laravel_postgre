@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class DiscRequest extends FormRequest
+class CreateDiscRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -64,7 +64,7 @@ class DiscRequest extends FormRequest
         throw new HttpResponseException(
             response()->json([
                 'success'         => false,
-                'message'         => 'A formatação dos campos esta incorreta',
+                'message'         => 'Check fields',
                 'validation'      => $validator->errors(),
             ])
         );
