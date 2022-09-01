@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Client;
 
-use App\Models\Disc;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDiscRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,17 +26,30 @@ class UpdateDiscRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required|numeric',
+            'name' => 'string|min:4',
+            'phone' => 'string|min:10',
+            'birth_date' => 'date',
         ];
     }
 
     public function messages()
     {
         return [
-            'amount' => [
+            'name' => [
                 'Required' => "true",
-                'Type'     => 'numeric'
-            ]
+                'Type'     => 'string',
+                'Lenth'    => '100'
+            ],
+            'phone' => [
+                'Required' => "true",
+                'Type'     => 'string',
+                'Lenth'    => '100'
+            ],
+            'birth_date' => [
+                'Required' => "true",
+                'Type'     => 'date',
+                'Format'   => 'yyyy-mm-dd'
+            ],
         ];
     }
 

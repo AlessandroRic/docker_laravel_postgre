@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Disc;
 
 use App\Models\Disc;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateDiscRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -47,11 +47,11 @@ class CreateDiscRequest extends FormRequest
                 'Type'     => 'string',
                 'Lenth'    => '100'
             ],
-            'amount' => [
+            'amount.required' => [
                 'Required' => "true",
                 'Type'     => 'numeric'
             ],
-            'released_at' => [
+            'released_at.required' => [
                 'Required' => "true",
                 'Type'     => 'date',
                 'Format'   => 'yyyy-mm-dd'

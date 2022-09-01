@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\DiscController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -27,6 +28,15 @@ Route::prefix('/discs')->group(function() {
     Route::put('/{id}', [DiscController::class, 'update']);
     Route::delete('/{id}', [DiscController::class, 'destroy']);
 });
+
+Route::prefix('/clients')->group(function() {
+    Route::get('/', [ClientController::class, 'index']);
+    Route::get('/{id}', [ClientController::class, 'show']);
+    Route::post('/', [ClientController::class, 'store']);
+    Route::put('/{id}', [ClientController::class, 'update']);
+    Route::delete('/{id}', [ClientController::class, 'destroy']);
+});
+
 
 Route::get('/redis', function (Request $request) {
     // Redis::set('user_visits', 1);

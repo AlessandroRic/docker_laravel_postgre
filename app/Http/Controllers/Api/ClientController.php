@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Disc\CreateRequest;
-use App\Http\Requests\Disc\UpdateRequest;
-use App\Models\Disc;
+use App\Http\Requests\Client\CreateRequest;
+use App\Http\Requests\Client\UpdateRequest;
+use App\Models\Client;
 
-class DiscController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class DiscController extends Controller
      */
     public function index()
     {
-        return Disc::all();
+        return Client::all();
     }
 
     /**
@@ -28,7 +28,7 @@ class DiscController extends Controller
     public function store(CreateRequest $request)
     {
         $request->validated();
-        Disc::create($request->all());
+        Client::create($request->all());
     }
 
     /**
@@ -39,15 +39,14 @@ class DiscController extends Controller
      */
     public function show($id)
     {
-
-        $disc = Disc::find($id);
+        $client = Client::find($id);
         
-        if(!$disc)
+        if(!$client)
             return response([
                 'message' => "Id $id Not Found"
             ], 404);
 
-        return response($disc);
+        return response($client);
     }
 
     /**
@@ -59,16 +58,16 @@ class DiscController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $amount = $request->safe()->only(['amount']);
+        $client_params = $request->safe()->only(['name','phone','birth_date']);
 
-        $disc = Disc::find($id);
+        $client = Client::find($id);
         
-        if(!$disc)
+        if(!$client)
             return response([
                 'message' => "Id $id Not Found"
             ], 404);
 
-        $disc->update($amount);
+        $client->update($client_params);
     }
 
     /**
@@ -79,13 +78,13 @@ class DiscController extends Controller
      */
     public function destroy($id)
     {
-        $disc = Disc::find($id);
+        $client = Client::find($id);
         
-        if(!$disc)
+        if(!$client)
             return response([
                 'message' => "Id $id Not Found"
             ], 404);
 
-        $disc->delete();
+        $client->delete();
     }
 }
