@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\DiscController;
+use App\Http\Controllers\Api\SaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,12 @@ Route::prefix('/clients')->group(function() {
     Route::post('/', [ClientController::class, 'store']);
     Route::put('/{id}', [ClientController::class, 'update']);
     Route::delete('/{id}', [ClientController::class, 'destroy']);
+});
+
+Route::prefix('/sales')->group(function() {
+    Route::get('/', [SaleController::class, 'index']);
+    Route::get('/{id}', [SaleController::class, 'show']);
+    Route::post('/', [SaleController::class, 'store']);
 });
 
 
