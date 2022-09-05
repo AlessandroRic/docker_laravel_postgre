@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Sale;
+namespace App\Http\Requests\Config;
 
-use App\Models\Sale;
+use App\Models\Config;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -26,30 +26,19 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
-        return Sale::$rules;
+        return Config::$rules;
     }
 
     public function messages()
     {
         return [
-            'client_id.exists' => [
-                "message" => "Client not found",
-                "format" => [
-                    'Required' => "true",
-                    'Type'     => 'numeric',
-                ],
-            ],
             'disc_id.required' => [
-                "message" => "Client not found",
+                "message" => "Disc not found",
                 "format" => [
                     'Required' => "true",
                     'Type'     => 'numeric',
                 ],
-            ],
-            'amount.required' => [
-                'Required' => "true",
-                'Type'     => 'numeric'
-            ],
+            ]
         ];
     }
 

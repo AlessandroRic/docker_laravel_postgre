@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\ConfigController;
 use App\Http\Controllers\Api\DiscController;
-use App\Http\Controllers\Api\SaleController;
+use App\Http\Controllers\Api\PurchaseController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,17 +39,13 @@ Route::prefix('/clients')->group(function() {
 });
 
 Route::prefix('/sales')->group(function() {
-    Route::get('/', [SaleController::class, 'index']);
-    Route::get('/{id}', [SaleController::class, 'show']);
-    Route::post('/', [SaleController::class, 'store']);
+    Route::get('/', [PurchaseController::class, 'index']);
+    Route::get('/{id}', [PurchaseController::class, 'show']);
+    Route::post('/', [PurchaseController::class, 'store']);
 });
 
-
-Route::get('/redis', function (Request $request) {
-    // Redis::set('user_visits', 1);
-    if (!Redis::exists('cristian')) 
-        Redis::setex('cristian',10,0);
-    return Redis::incr('cristian'); 
-    //$redis = Redis::set('alessandro_123', "guardando os dados do redis");
-    return true;
+Route::prefix('/configs')->group(function() {
+    Route::get('/', [ConfigController::class, 'index']);
+    Route::get('/{id}', [ConfigController::class, 'show']);
+    Route::post('/', [ConfigController::class, 'store']);
 });

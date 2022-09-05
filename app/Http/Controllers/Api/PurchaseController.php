@@ -3,31 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Sale\CreateRequest;
-use App\Models\Sale;
+use App\Http\Requests\Purchase\CreateRequest;
+use App\Models\Purchase;
+use App\Services\CheckPurchase;
 
-class SaleController extends Controller
+class PurchaseController extends Controller
 {
     public function index()
     {
-        return Sale::all();
+        return Purchase::all();
     }
 
     public function show($id)
     {
-        $sale = Sale::find($id);
+        $purchase = Purchase::find($id);
 
-        if(!$sale)
+        if(!$purchase)
             return response([
                 'message' => "Id $id Not Found"
             ], 404);
 
-        return response($sale);
+        return response($purchase);
     }
 
     public function store(CreateRequest $request)
     {
         $request->validated();
-        Sale::create($request->all());
+
+        return Purchase::create($request->all());
     }
 }
